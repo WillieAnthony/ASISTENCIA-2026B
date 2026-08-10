@@ -25,7 +25,8 @@ export function TeacherDashboard() {
 
   const qrUrl = useMemo(() => {
     if (!activeSalon) return ''
-    return `${window.location.origin}/r/${activeSalon.id}`
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+    return `${window.location.origin}${base}/r/${activeSalon.id}`
   }, [activeSalon])
 
   if (loading) {

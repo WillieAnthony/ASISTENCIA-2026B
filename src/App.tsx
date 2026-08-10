@@ -4,9 +4,11 @@ import { StudentRegister } from './pages/StudentRegister'
 import { TeacherDashboard } from './pages/TeacherDashboard'
 
 export default function App() {
+  const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
+
   return (
     <RegistroProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <Routes>
           <Route path="/" element={<StudentRegister />} />
           <Route path="/r/:salonId" element={<StudentRegister />} />
