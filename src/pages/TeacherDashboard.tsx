@@ -164,9 +164,6 @@ export function TeacherDashboard() {
                 Al escanearlo, el alumno abre el formulario de registro de este
                 salón.
               </p>
-              <code style={{ fontSize: '0.8rem', wordBreak: 'break-all' }}>
-                {qrUrl}
-              </code>
             </div>
           </section>
         ) : null}
