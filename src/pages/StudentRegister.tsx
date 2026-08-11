@@ -37,7 +37,7 @@ export function StudentRegister() {
   const [form, setForm] = useState<FormState>(emptyForm)
   const [errors, setErrors] = useState<FormErrors>({})
   const [loginOpen, setLoginOpen] = useState(false)
-  const [success, setSuccess] = useState('')
+  const [successOpen, setSuccessOpen] = useState(false)
   const [salon, setSalon] = useState<SalonRegistro | null>(null)
   const [salonLoading, setSalonLoading] = useState(Boolean(salonId))
   const [submitting, setSubmitting] = useState(false)
@@ -65,7 +65,7 @@ export function StudentRegister() {
   const setField = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }))
     setErrors((prev) => ({ ...prev, [key]: undefined }))
-    setSuccess('')
+    setSuccessOpen(false)
   }
 
   const validate = (): FormErrors => {
@@ -98,7 +98,7 @@ export function StudentRegister() {
     if (Object.keys(nextErrors).length > 0) return
 
     if (!salon) {
-      setSuccess('')
+      setSuccessOpen(false)
       setErrors({
         numeroCuenta:
           'Escanea el código QR del salón para registrar tu asistencia.',
@@ -123,7 +123,14 @@ export function StudentRegister() {
     }
 
     setForm(emptyForm)
-    setSuccess('Registro enviado. Tu asistencia quedó guardada.')
+    setErrors({})
+    setSuccessOpen(true)
+  }
+
+  const closeSuccess = () => {
+    setForm(emptyForm)
+    setErrors({})
+    setSuccessOpen(false)
   }
 
   return (
@@ -135,7 +142,7 @@ export function StudentRegister() {
             ? 'Cargando salón…'
             : salon
               ? `Introduce tus datos para registrar asistencia en ${salon.nombre}.`
-              : 'Introduce tus datos para registrar asistencia. Si eres alumno, usa el QR del salón.'}
+              : 'Introduce tus datos para registrar asistencia.'}
         </p>
 
         <form className="form-stack" onSubmit={onSubmit} noValidate>
@@ -236,10 +243,41 @@ export function StudentRegister() {
           >
             {submitting ? 'Enviando…' : 'Enviar registro'}
           </button>
-        </form>
 
-        {success ? <div className="toast">{success}</div> : null}
+          <p className="form-credit">
+            Este formulario ha sido realizado por{' '}
+            <strong>David Salazar González</strong>, alumno de{' '}
+            <strong>7°</strong> semestre de la{' '}
+            <strong>Licenciatura en Ingeniería en Software</strong>.
+          </p>
+        </form>
       </section>
+
+      {successOpen ? (
+        <div className="modal-backdrop" role="presentation">
+          <div
+            className="modal success-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="success-title"
+          >
+            <h2 id="success-title">Registro exitoso</h2>
+            <p>
+              Su registro ha sido realizado correctamente. La asistencia quedó
+              registrada.
+            </p>
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={closeSuccess}
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <button
         type="button"
