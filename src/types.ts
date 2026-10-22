@@ -11,9 +11,12 @@ export type Asistencia = {
   registradoEn: string
 }
 
-export type SalonRegistro = {
+/** Un QR con nombre. Cada evento tiene su propio listado de asistencias. */
+export type Evento = {
   id: string
   nombre: string
   creadoEn: string
   asistencias: Asistencia[]
 }
+
+export type NuevaAsistencia = Omit<Asistencia, 'id' | 'registradoEn'>

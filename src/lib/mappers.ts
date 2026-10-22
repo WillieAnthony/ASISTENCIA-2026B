@@ -1,7 +1,8 @@
-import type { Asistencia, SalonRegistro } from '../types'
+import type { Asistencia, Evento } from '../types'
 
-type AsistenciaRow = {
+export type AsistenciaRow = {
   id: string
+  salon_id?: string
   numero_cuenta: string
   nombre: string
   apellido_paterno: string
@@ -11,7 +12,7 @@ type AsistenciaRow = {
   registrado_en: string
 }
 
-type SalonRow = {
+export type EventoRow = {
   id: string
   nombre: string
   creado_en: string
@@ -31,7 +32,7 @@ export function mapAsistencia(row: AsistenciaRow): Asistencia {
   }
 }
 
-export function mapSalon(row: SalonRow): SalonRegistro {
+export function mapEvento(row: EventoRow): Evento {
   return {
     id: row.id,
     nombre: row.nombre,

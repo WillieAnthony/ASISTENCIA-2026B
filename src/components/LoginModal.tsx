@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useRegistro } from '../context/RegistroContext'
+import { useRegistro } from '../context/registro'
 
 type Props = {
   open: boolean
@@ -51,7 +51,7 @@ export function LoginModal({ open, onClose }: Props) {
               autoComplete="username"
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
-              placeholder="1maestro23@maestro.com"
+              placeholder="correo@ejemplo.com"
               required
             />
           </div>
